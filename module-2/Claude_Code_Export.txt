@@ -1,0 +1,620 @@
+
+> <ide_opened_file>The user opened the file
+  c:\Users\eekas\astr119\module-2\legendre.py in the IDE. This may or may not
+  be related to the current task.</ide_opened_file>
+
+> I am supposed to work with you to finish the legpoly function in the
+  legendre.py file. Can you access it?
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Yes, I can read legendre.py. It isn't on the no-AI list, so we can work on it
+  together. Here's where things stand:
+
+  - legpoly(n, x) already checks its inputs (legendre.py:27-28
+    (legendre.py#L27-L28)).
+  - The calculation itself is still a placeholder, y = None at legendre.py:34
+    (legendre.py#L34).
+  - _test1() at the bottom compares your results with the known formulas for P₀
+    through P₄ at x = 0.5. It also checks P₃₅₀₁(−1), which should be −1.
+
+  Before we change anything: git status shows uncommitted changes in
+  module-3/planets_arrays.py. Please run these first:
+
+  git add -A
+  git commit -m "before the agent"
+
+  My plan: legpoly is the main calculation in this assignment, so you'll write
+  the loop yourself. I'll replace the ### THIS IS WHERE YOU COME IN block with a
+  # TODO(human): list of steps (about 5 comment lines, no working code). Then
+  I'll review what you write.
+
+  While you commit, think about this, because the whole loop depends on it:
+
+  ▎ The recursion (n+1)P_{n+1} = (2n+1)x P_n − n P_{n−1} gives you the next
+  ▎ polynomial from the two previous ones. So which two polynomials do you need
+  ▎ to know before the loop can start, and what are they equal to? (The test
+  ▎ function has a hint.)
+
+  Tell me once you've committed and whether the plan sounds right, and I'll add
+  the TODO block.
+
+> I have committed everything. I want to make sure that you are editing the
+  loop only, not the whole file.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Your working tree is clean. I'll change only the four ### placeholder lines
+  inside legpoly (legendre.py:31-35 (legendre.py#L31-L35)) and leave everything
+  else in the file alone.
+
+● Update(legendre.py)
+  ⎿  Added 7 lines, removed 4 lines
+      28      assert (x >= -1) and (x <= 1), "x must be in [-1,1]" 
+      29  
+      30      # Calculate P_n(x)
+      31 -    ### THIS IS WHERE YOU COME IN                              
+      32 -    ### USE AS MANY LINES AS YOU NEED                          
+      33 -    ### USE A FOR LOOP OR WHILE LOOP, WHICHEVER YOU LIKE       
+      31 +    # TODO(human): write the loop that computes P_n(x).        
+      32 +    #   1. Set the two starting values: P_0(x) and P_1(x).     
+      33 +    #   2. If n is 0 or 1, you already have the answer; return 
+         +it.                                                            
+      34 +    #   3. Loop k from 1 up to n-1. At each step use the recurs
+         +ion to get                                                     
+      35 +    #      P_{k+1} from P_k and P_{k-1} (replace n with k in th
+         +e formula).                                                    
+      36 +    #   4. Shift your two saved values forward so the next step
+         + can use them.                                                 
+      37 +    #   5. After the loop, store P_n(x) in y.                  
+      38      y = None
+      35 -    ###                                                        
+      39  
+      40      return y
+      41  
+
+● I replaced only the placeholder block inside legpoly with a # TODO(human):
+  list of 5 steps. I left y = None in place so the file still runs while you
+  work. The docstring, the input checks, return y and _test1() are unchanged.
+
+  Check it yourself: run git diff and tell me what you see. You should find only
+  lines in that one block marked with - and +.
+
+  Before you write the loop, answer the question from step 1:
+  - What are P₀(x) and P₁(x)?
+  - Look at step 3. At the first pass through the loop (k = 1), which polynomial
+    does the recursion give you?
+
+  Write the loop when you're ready and tell me, and I'll review it. Don't run it
+  yet. Before we run it, I'll ask you to predict one value it should print.
+
+> This is the text from my assignment. "Now work with the agent under the
+  Protocol to finish legpoly. A good first request describes the recursion in
+  your own words and asks for the loop only, not the whole file." This makes me
+  think that you are supposed to do more than give steps towards completion,
+  but I could be wrong. Am I missing something?
+
+● You're not missing anything. The assignment and the course rules I follow in
+  this repository (in CLAUDE.md) point in slightly different directions.
+
+  - The assignment says to describe the recursion in your own words and ask for
+    "the loop only." That reads as if I'd write the loop once you've shown you
+    understand it.
+  - The repository rules say that for the function holding the central
+    calculation, I write the scaffolding and a TODO(human) list, you write the
+    core, and I review it. The loop is the only real calculation in legpoly, so
+    I treated it as the core.
+
+  I'm sticking with the repository rules because they're the stricter reading
+  and they're what I've been told to follow here. The assignment's "good first
+  request" seems to be mostly about two habits: explaining the idea yourself
+  first and scoping the request narrowly ("the loop only, not the whole file").
+  You did the second one well in your last message. I skipped the first: I
+  should have asked you to describe the recursion before giving you steps.
+
+  If you think your instructor really means for the agent to write the loop, ask
+  them or a TA. It's a reasonable question, and I'll follow what they say.
+
+  Until then, I can do more than hand you a list of steps:
+
+  1. You describe the recursion in your own words, as the assignment asks. What
+     does it take in, what does it produce, and why does it need two earlier
+     values?
+  2. I check your description and correct anything that's off.
+  3. You write the loop, even a rough or partly wrong version, and I review it
+     line by line and point out problems.
+
+  Want to start with step 1? A few sentences is enough.
+
+> <ide_selection>The user selected the lines 9 to 9 from
+  c:\Users\eekas\astr119\module-2\legendre.py:
+  (n + 1)P_{n+1}(x) = (2n + 1)xP_n(x) - nP_{n-1}(x)
+
+  This may or may not be related to the current task.</ide_selection>
+
+> Well, it seems to me that the recursion here is just pointing to the fact
+  that P(n) is defined as a funciton of P(n-1) and P(n-2). In the file, it
+  describes a P(n+1) in terms of P(n) and P(n-1), but that's just using
+  different indexes.
+
+  To write the actual code, I think I would need to hard define P_0 (x) = 1 for
+  all x and that P_1 (x) = x for all x. Once I have that, I think I'll need to
+  write a loop that takes legpoly up to some inputted index value "n" by
+  starting it on an index of 2 and one-by-one bringing it up to the desired
+  value of n. Obviously, I'll have to check for if the input n=0 or n=1, the
+  output is 1 or the x input, respectively.
+
+● Your description is correct:
+
+  - P₀(x) = 1 and P₁(x) = x are the two starting values.
+  - n = 0 and n = 1 are special cases you return right away.
+  - Every later polynomial is built from the two before it, stepping up one
+    index at a time until you reach n.
+
+  You also spotted that P_{n+1} from P_n and P_{n−1} is the same rule as P_n
+  from P_{n−1} and P_{n−2}, just with the index shifted.
+
+  One thing to watch. Your plan counts the loop index as the polynomial you're
+  computing (start at 2, go up to n). My TODO step 3 counts it as the highest
+  one you already have (k from 1 to n−1, computing P_{k+1}). Either works, but
+  the formula's coefficients depend on which you pick. If you use your version,
+  you have to rewrite line 9 yourself with the shifted index.
+
+  So before you write any code, answer this:
+
+  ▎ Rewrite the recursion so it gives P_k in terms of P_{k−1} and P_{k−2},
+  ▎ solved for P_k (nothing multiplying it on the left). What are the
+  ▎ coefficients?
+
+  Two more things to think about while you write the loop:
+
+  - The loop never calls legpoly inside itself. It keeps only two numbers, the
+    "previous" and the "one before that". After each step, how do you shift them
+    forward without overwriting one before you've used it?
+  - For your loop starting at index 2, what Python range(...) makes it end at
+    exactly n, not n−1 and not n+1?
+
+  If you like your indexing better than mine, edit the TODO comment to match.
+  It's your code. Send me the formula, then the loop when you have it, and I'll
+  review both.
+
+> <ide_opened_file>The user opened the file
+  c:\Users\eekas\astr119\module-2\legendre.py in the IDE. This may or may not
+  be related to the current task.</ide_opened_file>
+
+> P_k(x) = ( (2 * (k-1) + 1) * x * P_{k-1}(x) - k * P_{k-2}(x) ) / k
+
+● You're close: the first term is right, and so is dividing by k. One
+  coefficient is off.
+
+  Test it against something you already know. Put k = 2 into your formula, using
+  P₀ = 1 and P₁ = x, and simplify. Then compare with the known answer in
+  _test1() at legendre.py:46 (legendre.py#L46), P_2 = 0.5*(3x² − 1).
+
+  They won't match. Which term causes the difference?
+
+  Hint: your rewrite comes from substituting n = k − 1 into line 9. You made
+  that substitution in the (2n + 1) coefficient and in the (n + 1) on the left.
+  Check whether you made it in every place n appears.
+
+  Send me the corrected formula and I'll confirm it before you write the loop.
+
+> <ide_opened_file>The user opened the file
+  c:\Users\eekas\astr119\module-2\legendre.py in the IDE. This may or may not
+  be related to the current task.</ide_opened_file>
+
+> I have some code that I'm working on right now. I want clarification on a
+  specific point. I defined P_1 = x .
+
+  Read 1 file (ctrl+o to expand)
+
+● Your message seems to have been cut off after "I defined P_1 = x". What did
+  you want to ask about it?
+
+  Meanwhile, P_1 = x on legendre.py:13 (legendre.py#L13) is correct. P₁(x) = x
+  for every x. Inside the function, x is one specific number, so P_1 just holds
+  that number. Your formula on line 18 now has (k-1) on the P_{k−2} term, so you
+  fixed the coefficient.
+
+  I can see the rest is still in progress, so I'll do a full review when you say
+  it's ready. One heads-up now, since it's about naming things like P_1:
+
+  ▎ On lines 15–20 you write P_{k-1} and P_{k-2}. In math that means "P with
+  ▎ subscript k−1." What does Python do with the curly braces in P_{k-1}? Is it
+  ▎ a variable name it can look up?
+
+  Think about that, then tell me your actual question about P_1.
+
+> Hang on
+
+● Sure, take your time. Tell me your question or say when the code is ready for
+  review.
+
+> I have some code that I'm working on right now. I want clarification on a
+  specific point. I defined P_1 = x . If I then introduce a P_{k-1} variable,
+  with k = 2, will python recognize this new variable as a new way of saying
+  P_1, and thus give me the correct result of x? Or, is this simply a new
+  variable with no "official" relation to P_1 . My code is not finished yet,
+  and I want to try to figure it out for myself, so please don't tell me
+  anything about it other than what I just asked.
+
+● No, Python won't connect it to P_1. And it's not quite a new variable either:
+
+  - Names are fixed labels. Python never does arithmetic inside a variable name.
+    P_1 is just a three-character label, and nothing in Python reads the 1 as a
+    number. If k = 2, a name containing k-1 still won't point to whatever is
+    stored under P_1. Two different names are two unrelated variables, unless
+    you assign one from the other yourself (a = b).
+  - P_{k-1} isn't a legal name at all. A Python name can contain only letters,
+    digits and underscores. When Python reaches the {, it treats P_ as a name
+    and then hits a curly brace it can't make sense of in that spot. You'll get
+    a SyntaxError before any of your code runs.
+
+  So the subscripts in the math formula don't carry over into variable names.
+  You'll need some other way to keep track of "the previous value" and "the one
+  before that". I'll leave that part to you, as you asked. Tell me when you're
+  ready for a review.
+
+> <ide_opened_file>The user opened the file
+  c:\Users\eekas\astr119\module-2\legendre.py in the IDE. This may or may not
+  be related to the current task.</ide_opened_file>
+
+> I think I have the loop correct now. I am a little unsure of what exactly
+  happens after the ending else: statement (my hope is that the program loops
+  back to the beginning and goes through the equation and then the if/else
+  statements again. I also am unsure if the "return y" statement is in the
+  right place. I wanted it to take place once k == n, which is checked for in
+  the "if:" statement, but I don't know if the the loop will register its end
+  if the return statement is nested in something else.
+
+  Read 1 file (ctrl+o to expand)
+
+● Here are answers to your two questions, then a review.
+
+  Your questions
+
+  1. What happens after the else: on line 24? Line 26 is the last line of the
+  loop body. After it runs, Python goes back to the for on line 18, sets k to
+  the next value in the range, and runs the body again from line 19. It does not
+  go back to the if n == 0 / elif / else on lines 11–15. Those run once, before
+  the loop starts. Only the indented lines under for repeat.
+
+  2. Is return y in the right place? It works. return leaves the whole function
+  immediately, however deeply it's nested inside loops and ifs. Once k == n, the
+  function ends right there with y. (A simpler version also works: let the loop
+  finish, then return after it. Both are fine.)
+
+  Things to look at
+
+  I'll name each line and ask a question rather than give fixes:
+
+  1. n = 0 and n = 1 (lines 11–14). You set y in these branches, but there's no
+     return there. Follow the code by hand for legpoly(0, 0.5). After line 12,
+     where does Python go next, and what does the function finally return? (Look
+     at lines 61–63.)
+  2. Line 16, / k. Is k defined yet at this point? It first appears on line 18.
+  3. Starting values (lines 16–17). On the first pass, k = 2, so line 19
+     computes P₂. That means it needs P₁ in P_a and P₀ in P_b. What should P_a
+     and P_b hold before the loop starts? Compare with what lines 16–17 put in
+     them.
+  4. The shift (lines 25–26). a = b copies the value of b into a, never the
+     other way around. After you compute P_k, which value should become the new
+     P_a, and which should become the new P_b? Read your two lines with that
+     rule in mind. Also, does the order of the two lines matter?
+  5. Placement (smaller issue). Your code now sits above the """...""" block. A
+     docstring only counts if it's the first thing in the function, so it no
+     longer is one. The old y = None / return y on lines 61–63 is also still
+     there. Once the rest works, you'll probably want your code below the
+     docstring, where the TODO is.
+
+  Before changing anything, trace legpoly(2, 0.5) by hand through your current
+  code, line by line. What happens, and where? Then do the same for the version
+  you plan to fix it to, and predict the number it should print. (_test1 says
+  P₂(0.5) should be −0.125.)
+
+> <ide_opened_file>The user opened the file
+  c:\Users\eekas\astr119\module-2\legendre.py in the IDE. This may or may not
+  be related to the current task.</ide_opened_file>
+
+> I think I have fixed everything you mentioned to me
+
+  Read 1 file (ctrl+o to expand)
+
+● I read it through and it's correct. All five issues are fixed:
+
+  - n = 0 and 1: return y on legendre.py:46 (legendre.py#L46) is now at function
+    level, so these cases return their value instead of falling through to
+    None.
+  - Starting values: P_a = x (P₁) and P_b = 1 (P₀) are what the first pass
+    needs.
+  - Undefined k: gone.
+  - Shift: lines 44–45 now copy in the right direction.
+  - Placement: the docstring is back at the top, and the old y = None is gone.
+
+  Before you run it, answer these.
+
+  1. Predict. Work out by hand, using only your code, what legpoly(3, 0.5)
+  returns. Write the values of P_a, P_b and P_k at each pass of the loop. You
+  already know P₂(0.5) = −0.125, which saves a step.
+
+  2. Why. On lines 44–45 you set P_b = P_a first and then P_a = P_k. What would
+  go wrong if you swapped those two lines?
+
+  3. Diff. Run git diff and tell me what you see. Does it show only the changes
+  you meant to make?
+
+  Then run python legendre.py and compare it with your prediction.
+
+  Sanity check: the last test line computes P₃₅₀₁(−1), which should be −1. For
+  any n, what are Pₙ(1) and Pₙ(−1)? Once the tests pass, try legpoly(10, 1.0)
+  and legpoly(10, -1.0) and see whether you get what you expect. Why are those
+  good values to test at?
+
+> Real quick: Do I need to define n and x as inputs from running the function?
+  Something like: python legendre.py n, x
+
+  Where I'd replace n and x with whatever values I want to assign?
+
+● No. n and x get their values when the function is called, not when the file is
+  run. def legpoly(n, x): only says "this function expects two inputs." Each
+  call such as legpoly(3, 0.5) provides them, with n = 3 and x = 0.5 for that
+  call.
+
+  When you run python legendre.py with no extra arguments:
+
+  1. Python reads the file and defines legpoly and _test1. Nothing is calculated
+     yet.
+  2. It reaches if __name__ == '__main__': at the bottom. That condition is true
+     when you run the file directly, so it calls _test1().
+  3. _test1() calls legpoly(0, x), legpoly(1, x), …, legpoly(3501, -1), each
+     with its own values.
+
+  If you typed python legendre.py 3 0.5, Python would ignore the 3 0.5. The
+  script never reads them, because reading command-line arguments takes extra
+  code (sys.argv) that you don't need here.
+
+  To try your own values, like the sanity check, use either of these:
+
+  - Interactive: run python, then
+  >>> from legendre import legpoly
+  >>> legpoly(10, 1.0)
+  - One line from the terminal:
+  python -c "from legendre import legpoly; print(legpoly(10, 1.0))"
+
+  Run either one from the module-2 folder so Python can find legendre.py.
+
+  So for now, plain python legendre.py is enough. Remember to write down your
+  prediction for legpoly(3, 0.5) before you run it.
+
+> <ide_opened_file>The user opened the file
+  c:\Users\eekas\astr119\module-2\multitab.py in the IDE. This may or may not
+  be related to the current task.</ide_opened_file>
+
+> What does line 28 of multitab.py mean?
+  Read 1 file (ctrl+o to expand)
+
+● Line 28 is the same if __name__ == '__main__': line at the bottom of
+  legendre.py, so this answers that one too.
+
+  It means: run the indented lines below only when this file is run directly.
+
+  - Python gives every file a built-in variable called __name__.
+  - When you run python multitab.py, Python sets __name__ to '__main__'. The
+    condition is true, so lines 29–30 run.
+  - When another file or the interactive prompt uses from multitab import
+    multitab, Python sets __name__ to 'multitab', the file's name. The condition
+    is false, so lines 29–30 are skipped.
+
+  This lets one file work two ways. It can run as a small program, or other code
+  can import its function without the program part starting on its own. That's
+  why from legendre import legpoly won't run your whole test suite.
+
+  This file also connects to your last question. In multitab.py, line 29 does
+  ask for input while running, using input(...). That's the in-script way to get
+  a value from the user, as opposed to command-line arguments.
+
+  Line 4: there are two backticks after import math. When you try to run the
+  file, what do you think Python will do with them?
+
+  Question: in legendre.py, what would happen if the if __name__ == '__main__':
+  line were deleted and _test1() were no longer indented, and then you ran from
+  legendre import legpoly in the interactive prompt?
+
+> <ide_opened_file>The user opened the file
+  c:\Users\eekas\astr119\module-2\legendre.py in the IDE. This may or may not
+  be related to the current task.</ide_opened_file>
+
+> When I try to run the command "from legendre.py import legpoly" I get the
+  following error message:
+  At line:1 char:1
+  - from legendre.py import legpoly
+  -
+  The 'from' keyword is not supported in this version of the language.
+      + CategoryInfo          : ParserError: (:) [],
+  ParentContainsErrorRecordException
+      + FullyQualifiedErrorId : ReservedKeywordNotAllowed
+  What does this mean? How do I fix this?
+
+● That error message comes from PowerShell, not Python. You typed a Python
+  statement straight into the terminal, so PowerShell tried to read it as one of
+  its own commands. from is a reserved word in PowerShell that it doesn't allow
+  there, so it gave up. Python never saw the line.
+
+  There are two fixes.
+
+  1. Start Python first, then type Python code. The terminal prompt shows which
+  program is listening:
+  - PS C:\Users\eekas\astr119\module-2> means PowerShell, so run commands like
+    python, git and cd here.
+  - >>> means Python is waiting for Python code.
+
+  So run python first. When the prompt changes to >>>, type your import.
+
+  2. Leave off .py in the import. import takes a module name, not a file name.
+  Python adds the .py itself. With the extension, Python reads legendre.py as "a
+  module named py inside a package named legendre" and fails with a different
+  error.
+
+  Together:
+
+  PS C:\Users\eekas\astr119\module-2> python
+  >>> from legendre import legpoly
+  >>> legpoly(10, 1.0)
+
+  Type exit() to get back to PowerShell.
+
+  If you'd rather stay in PowerShell, the one-line form from earlier works. It
+  hands the Python code to python inside quotes:
+
+  python -c "from legendre import legpoly; print(legpoly(10, 1.0))"
+
+  Make sure the astr119 conda environment is active (conda activate astr119) and
+  that you're in the module-2 folder.
+
+  Before you press Enter on legpoly(10, 1.0), what do you predict it returns?
+
+> <ide_opened_file>The user opened the file
+  c:\Users\eekas\astr119\module-2\multitab.py in the IDE. This may or may not
+  be related to the current task.</ide_opened_file>
+
+> I have a basic program in multitab.py that prints a multiplication table of a
+  given size. Is there any way to make it so the numbers line up better? For
+  example, when I print the table for n = 10, the first row is significantly
+  shorter in length than the second row, and it is difficult to see what
+  numbers are in what collumn.
+
+  Read 1 file (ctrl+o to expand)
+
+● Yes. Right now each number takes exactly as many characters as it has digits:
+  1 is one character, 100 is three. So the columns drift apart as the numbers
+  grow.
+
+  The fix is a field width in the f-string. After the value, inside the braces,
+  put a colon and a number:
+
+  f"{7:4}"      # '   7'   (padded to 4 characters)
+  f"{42:4}"     # '  42'
+  f"{100:4}"    # ' 100'
+
+  :4 means "use at least 4 characters." Numbers are lined up on the right by
+  default, which is what you want for columns. (:<4 lines up on the left and :^4
+  centers.) Every entry now has the same width, so the columns line up no
+  matter how many digits each number has.
+
+  You can try it in the Python prompt (>>>) before you touch your file:
+
+  >>> print(f"[{5:4}]")
+  >>> print(f"[{123:4}]")
+
+  The brackets let you see the padding.
+
+  Then change line 21 yourself. One thing to work out:
+
+  ▎ A fixed width like 4 works for n = 10. What's the smallest width that works
+  ▎ for any n? Which number in the table is the widest, and how could your code
+  ▎ count its digits? (Notice that line 4 already imports math.)
+
+  You can put a variable inside the format, for example f"{value:{w}}", where w
+  is a number you computed earlier.
+
+  Before you run the new version, predict what the first two rows of
+  multitab(10) will look like, then check.
+
+> <ide_opened_file>The user opened the file
+  c:\Users\eekas\astr119\module-2\multitab.py in the IDE. This may or may not
+  be related to the current task.</ide_opened_file>
+
+> The lines still get shifted for larger n values. Am I missing something?
+
+  Read 1 file (ctrl+o to expand)
+
+● Your code at multitab.py:19-23 (multitab.py#L19-L23) is close. Three things
+  could cause what you're seeing. Which n values did you try?
+
+  1. Is w wide enough? Line 19 counts the digits of n (int(math.log10(n)) + 1)
+  and adds 2 extra. But the widest number in the table isn't n, it's n × n. Test
+  the formula on a few values:
+
+  ┌─────┬────────┬─────────────────┬────────────┐
+  │  n  │ your w │ widest entry n² │ its digits │
+  ├─────┼────────┼─────────────────┼────────────┤
+  │ 10  │ 4      │ 100             │ 3          │
+  ├─────┼────────┼─────────────────┼────────────┤
+  │ 100 │ ?      │ ?               │ ?          │
+  ├─────┼────────┼─────────────────┼────────────┤
+  │ 400 │ ?      │ ?               │ ?          │
+  └─────┴────────┴─────────────────┴────────────┘
+
+  Fill in the table. Does the "+ 3" always cover the gap? How could you count
+  the digits of n² directly?
+
+  2. Is the terminal wrapping your rows? Each row has n entries of w + 1
+  characters (the +1 is your end=' '). For n = 30, that's about 150 characters,
+  probably wider than your terminal window. The terminal then continues the row
+  on the next line, and that looks just like misalignment even when the
+  formatting is perfect. Try making the terminal window much wider, or zooming
+  out, and run the same n again. Does the shift go away?
+
+  3. ^ centers the numbers. In a column of width 4, 7 and 42 can't both sit
+  exactly in the middle, so the digits zigzag a little. The columns are
+  technically aligned, but the ones digits aren't stacked. Try > (or no
+  alignment character at all) and compare which one is easier to read.
+
+  Tell me which n you used and what changed when you tried #2. Then we'll know
+  which of these it is.
+
+> <ide_opened_file>The user opened the file
+  c:\Users\eekas\astr119\module-2\legendre.py in the IDE. This may or may not
+  be related to the current task.</ide_opened_file>
+
+> Just out of curiosity: is there a faster/more efficient way to accomplish the
+  goals set up in legendre.py than what I did ?
+
+● Not really, at least not in how the work grows with n. What you wrote is
+  already the efficient method.
+
+  Why your version is good:
+  - It takes n − 1 steps to reach Pₙ, each a few multiplications. Doubling n
+    doubles the time, which is about as good as it gets for computing Pₙ from
+    scratch.
+  - It stores only three numbers (P_a, P_b, P_k) however large n gets.
+
+  What the "slow way" looks like, for comparison. The docstring warns against
+  having legpoly(n, x) call legpoly(n-1, x) and legpoly(n-2, x). Each of those
+  calls two more, and so on, so the number of calls roughly doubles with each
+  step up in n. For n = 3501 that would never finish. Your loop does about 3500
+  steps.
+
+  Ways to speed it up in practice:
+
+  1. A tidier loop. if k == n is checked on every pass, but it's only true once.
+     You could shift every time and set y = P_a after the loop ends. With the
+     right starting values, the n == 1 case even handles itself. It's a small
+     gain, mostly in readability.
+  2. Use a library. scipy.special.eval_legendre(n, x) uses essentially the same
+     recurrence, but written in compiled C, so it runs much faster than a Python
+     loop. It also accepts a whole array of x values at once. That matters when
+     you're plotting Pₙ at 1000 points. Your version needs a Python loop over
+     x, and its assert on x would fail for an array anyway. scipy is already in
+     your environment.
+  3. Very large n. There are approximate formulas for Pₙ when n is huge that
+     skip the loop entirely. You won't need them in this course.
+
+  One "faster-looking" method that's actually worse. Pₙ has an explicit formula
+  as a sum of powers of x with binomial coefficients. For large n those terms
+  become enormous and alternate in sign, so they nearly cancel. With
+  floating-point numbers you lose almost every correct digit. The recurrence
+  doesn't have that problem, which is one reason it's the standard method.
+
+  To check this yourself, compare your function with scipy:
+
+  >>> from legendre import legpoly
+  >>> from scipy.special import eval_legendre
+  >>> legpoly(50, 0.3), eval_legendre(50, 0.3)
+
+  Before running it, how closely do you expect the two to agree? Exactly, or to
+  about how many digits?
+
+> <ide_opened_file>The user opened the file
+  c:\Users\eekas\astr119\module-2\multitab.py in the IDE. This may or may not
+  be related to the current task.</ide_opened_file>
